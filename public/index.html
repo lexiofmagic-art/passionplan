@@ -3188,16 +3188,16 @@ function renderCourseView(){
 
   if(course.stage === 'lessons'){
     if(course.planStatus === 'idle'){
-      renderCourseLoading(el, `Building your ${passion.name} curriculum…`, 'Generating 5 beginner lessons');
+      renderCourseLoading(el, `Preparing your ${passion.name} lessons…`, 'Setting up 5 beginner lessons');
       loadLessonPlan(passion, course);
       return;
     }
     if(course.planStatus === 'loading'){
-      renderCourseLoading(el, `Building your ${passion.name} curriculum…`, 'This usually takes a few seconds');
+      renderCourseLoading(el, `Preparing your ${passion.name} lessons…`, 'This usually takes a few seconds');
       return;
     }
     if(course.planStatus === 'error'){
-      renderCourseError(el, 'Something went wrong generating your curriculum.', ()=>{ course.planStatus='idle'; renderCourseView(); });
+      renderCourseError(el, 'Something went wrong preparing your lessons.', ()=>{ course.planStatus='idle'; renderCourseView(); });
       return;
     }
     if(course.currentLessonIndex === null){
@@ -3207,16 +3207,16 @@ function renderCourseView(){
     }
   } else if(course.stage === 'test'){
     if(course.testStatus === 'idle'){
-      renderCourseLoading(el, `Assembling your 50-question final test…`, 'Question batch 1 of 5');
+      renderCourseLoading(el, `Preparing your 50-question final test…`, 'Question batch 1 of 5');
       loadFinalTest(passion, course);
       return;
     }
     if(course.testStatus === 'loading'){
-      renderCourseLoading(el, `Assembling your 50-question final test…`, `Question batch ${course._testBatchProgress || 1} of ${TEST_BATCH_COUNT}`);
+      renderCourseLoading(el, `Preparing your 50-question final test…`, `Question batch ${course._testBatchProgress || 1} of ${TEST_BATCH_COUNT}`);
       return;
     }
     if(course.testStatus === 'error'){
-      renderCourseError(el, 'Something went wrong generating your final test.', ()=>{ course.testStatus='idle'; renderCourseView(); });
+      renderCourseError(el, 'Something went wrong preparing your final test.', ()=>{ course.testStatus='idle'; renderCourseView(); });
       return;
     }
     renderTestStage(el, passion, course);
@@ -3388,8 +3388,8 @@ function renderLessonDetail(el, passion, course, index){
   if(lesson.status === 'loading' || lesson.status === 'idle'){
     el.innerHTML = `<button class="back-link" style="margin-bottom:16px;" onclick="backToLessonList()">← All lessons</button>`;
     const partNum = lesson._partProgress || 0;
-    const subLabel = partNum === 0 ? 'Getting started…' : partNum <= 3 ? `Writing section ${partNum} of 3` : 'Writing the quiz';
-    renderCourseLoading(el, `Writing "${meta.title}"…`, subLabel);
+    const subLabel = partNum === 0 ? 'Getting things ready…' : partNum <= 3 ? `Preparing section ${partNum} of 3` : 'Preparing your quiz';
+    renderCourseLoading(el, `Preparing "${meta.title}"…`, subLabel);
     return;
   }
   if(lesson.status === 'error'){
